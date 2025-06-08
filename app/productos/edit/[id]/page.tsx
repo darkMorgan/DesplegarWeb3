@@ -1,5 +1,5 @@
 'use client'
-
+import React from 'react'
 import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 
@@ -34,7 +34,7 @@ export default function EditarProductoPage() {
       .finally(() => setLoading(false))
   }, [id])
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSaving(true)
     setError(null)
