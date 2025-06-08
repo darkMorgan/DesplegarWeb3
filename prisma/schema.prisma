@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Categoria {
+  id          Int         @id @default(autoincrement())
+  nombre      String      @unique
+  descripcion String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  productos   Producto[]
+
+  @@map("categorias")
+}
+
+model Producto {
+  id          Int       @id @default(autoincrement())
+  nombre      String
+  descripcion String?
+  precio      Float
+  stock       Int       @default(0)
+  categoriaId Int
+  categoria   Categoria @relation(fields: [categoriaId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("productos")
+}
