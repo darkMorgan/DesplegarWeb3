@@ -8,7 +8,8 @@ export default function ProductosPage() {
   const [productos, setProductos] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [deleteLoadingId, setDeleteLoadingId] = useState(null)
+  const [deleteLoadingId, setDeleteLoadingId] = useState<number | null>(null)
+
   const router = useRouter()
 
   useEffect(() => {
