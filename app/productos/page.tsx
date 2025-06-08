@@ -4,10 +4,22 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
+// ✅ Definimos el tipo Producto
+interface Producto {
+  id: number
+  nombre: string
+  descripcion?: string
+  precio: number
+  stock: number
+  categoria?: {
+    nombre: string
+  }
+}
+
 export default function ProductosPage() {
-  const [productos, setProductos] = useState([])
+  const [productos, setProductos] = useState<Producto[]>([]) // ✅ Tipado aquí
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
   const [deleteLoadingId, setDeleteLoadingId] = useState<number | null>(null)
 
   const router = useRouter()
