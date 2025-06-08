@@ -14,7 +14,7 @@ export default function EditarProductoPage() {
   const [stock, setStock] = useState(0)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     if (!id) return
@@ -30,7 +30,13 @@ export default function EditarProductoPage() {
         setPrecio(data.precio)
         setStock(data.stock)
       })
-      .catch(err => setError(err.message))
+      .catch(err => {
+        if (err instanceof Error) {
+          setError(err.message)
+        } else {
+          setError('Error inesperado')
+        }
+      })
       .finally(() => setLoading(false))
   }, [id])
 
@@ -51,7 +57,11 @@ export default function EditarProductoPage() {
       }
       router.push('/productos')
     } catch (err) {
-      setError(err.message || 'Error inesperado')
+      if (err instanceof Error) {
+        setError(err.message)
+      } else {
+        setError('Error inesperado')
+      }
     } finally {
       setSaving(false)
     }
